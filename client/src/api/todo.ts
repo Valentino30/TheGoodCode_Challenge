@@ -14,3 +14,8 @@ export const toggleTodoRequest = async (id: string) => {
   const { data: toggledTodo } = await apiCall.put(`/todos/${id}`);
   return toggledTodo;
 };
+
+export const deleteTodoRequest = async (id: string) => {
+  const { data: deletedTodo } = await apiCall.delete(`/todos/${id}`);
+  return deletedTodo;
+};

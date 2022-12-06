@@ -1,7 +1,12 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
 import { TodoContextType, TodoProviderType, TodoType } from "../types/todo";
-import { addTodoRequest, getTodosRequest, toggleTodoRequest } from "../api/todo";
+import {
+  addTodoRequest,
+  getTodosRequest,
+  toggleTodoRequest,
+  deleteTodoRequest,
+} from "../api/todo";
 
 const TodoContext = createContext({} as TodoContextType);
 
@@ -33,8 +38,15 @@ export const TodoProvider = ({ children }: TodoProviderType) => {
     });
   };
 
+  const deleteTodo = async (id: string) => {
+    await deleteTodoRequest(id);
+    setTodos((todos) => {
+      return todos.filter((todo) => todo.id !== id);
+    });
+  };
+
   return (
-    <TodoContext.Provider value={{ todos, addTodo, toggleTodo }}>
+    <TodoContext.Provider value={{ todos, addTodo, toggleTodo, deleteTodo }}>
       {children}
     </TodoContext.Provider>
   );

@@ -10,6 +10,7 @@ export type TodoContextType = {
   todos: TodoType[] | [];
   addTodo: (name: string) => void;
   toggleTodo: (id: string) => void;
+  deleteTodo: (id: string) => void;
 };
 
 export type TodoProviderType = {

@@ -14,4 +14,8 @@ export const apiCall = {
     const response = await axios.put(`${apiCall.baseUrl}${endpoint}`);
     return response;
   },
+  delete: async (endpoint: string) => {
+    const response = await axios.delete(`${apiCall.baseUrl}${endpoint}`);
+    return response;
+  },
 };

@@ -10,7 +10,7 @@ import ListItem from "./components/ListItem";
 
 function App() {
   const [newTodo, setNewTodo] = useState("");
-  const { todos, addTodo, toggleTodo } = useTodo();
+  const { todos, addTodo, toggleTodo, deleteTodo } = useTodo();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setNewTodo(e.target.value);
@@ -26,9 +26,13 @@ function App() {
     toggleTodo(todoId);
   };
 
+  const handleDelete = (todoId: string) => {
+    deleteTodo(todoId);
+  };
+
   return (
     <div className="App">
-      The Good Code App
+      <h2>The Good Code App</h2>
       <Form onSubmit={handleSubmit}>
         <Input
           type="text"
@@ -40,12 +44,14 @@ function App() {
       <List>
         {todos.map((todo) => (
           <ListItem
+            remove
             checkbox
             id={todo.id}
             key={todo.id}
             name={todo.name}
-            checked={todo.selected}
             onCheck={handleCheck}
+            checked={todo.selected}
+            onButtonClick={handleDelete}
           />
         ))}
       </List>
