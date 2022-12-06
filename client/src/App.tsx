@@ -13,7 +13,6 @@ function App() {
   const [newTodo, setNewTodo] = useState("");
   const {
     todos,
-    adding,
     addTodo,
     loading,
     toggling,
@@ -55,11 +54,8 @@ function App() {
           onChange={handleChange}
         />
       </Form>
-      {!loading ? (
+      {!loading && (
         <List>
-          {adding && <p>Adding todo...</p>}
-          {deleting && <p>Deleting todo...</p>}
-          {toggling && <p>Toggling todo...</p>}
           {todos.map((todo) => (
             <ListItem
               remove
@@ -75,8 +71,6 @@ function App() {
             />
           ))}
         </List>
-      ) : (
-        <p>Fetching todos...</p>
       )}
     </div>
   );
