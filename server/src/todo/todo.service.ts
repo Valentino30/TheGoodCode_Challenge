@@ -1,5 +1,5 @@
 import { Model } from 'mongoose';
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException, NotFoundException } from '@nestjs/common';
 
 import { Todo } from './todo.model';
 import { InjectModel } from '@nestjs/mongoose';
@@ -17,5 +17,23 @@ export class TodosService {
     const newTodo = new this.todoModel({ name });
     await newTodo.save();
     return newTodo as Todo;
+  }
+
+  async toggleTodo(todoId: string): Promise<Todo> {
+    const todo = await this.findTodo(todoId);
+    todo.selected = !todo.selected;
+    const toggledTodo = await todo.save();
+    return toggledTodo as Todo;
+  }
+
+  private async findTodo(todoId: string): Promise<Todo> {
+    let todo;
+    try {
+      todo = await this.todoModel.findById(todoId);
+      if (!todo) throw new NotFoundException('Could not find todo');
+    } catch (error) {
+      throw new HttpException(error.message, error.status);
+    }
+    return todo as Todo;
   }
 }
