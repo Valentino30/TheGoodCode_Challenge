@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
-import { addTodoRequest, getTodosRequest } from "../api/todo";
 import { TodoContextType, TodoProviderType, TodoType } from "../types/todo";
+import { addTodoRequest, getTodosRequest, toggleTodoRequest } from "../api/todo";
 
 const TodoContext = createContext({} as TodoContextType);
 
@@ -26,7 +26,16 @@ export const TodoProvider = ({ children }: TodoProviderType) => {
     setTodos([...todos, todo]);
   };
 
+  const toggleTodo = async (id: string) => {
+    const completedTodo = await toggleTodoRequest(id);
+    setTodos((todos) => {
+      return todos.map((todo) => (todo.id === id ? completedTodo : todo));
+    });
+  };
+
   return (
-    <TodoContext.Provider value={{ todos, addTodo }}>{children}</TodoContext.Provider>
+    <TodoContext.Provider value={{ todos, addTodo, toggleTodo }}>
+      {children}
+    </TodoContext.Provider>
   );
 };

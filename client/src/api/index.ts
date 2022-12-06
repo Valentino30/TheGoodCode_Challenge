@@ -10,4 +10,8 @@ export const apiCall = {
     const response = await axios.post(`${apiCall.baseUrl}${endpoint}`, data);
     return response;
   },
+  put: async (endpoint: string) => {
+    const response = await axios.put(`${apiCall.baseUrl}${endpoint}`);
+    return response;
+  },
 };

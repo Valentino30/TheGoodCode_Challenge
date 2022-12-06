@@ -9,8 +9,8 @@ import Input from "./components/Input";
 import ListItem from "./components/ListItem";
 
 function App() {
-  const { todos, addTodo } = useTodo();
   const [newTodo, setNewTodo] = useState("");
+  const { todos, addTodo, toggleTodo } = useTodo();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setNewTodo(e.target.value);
@@ -20,6 +20,10 @@ function App() {
     e.preventDefault();
     addTodo(newTodo);
     setNewTodo("");
+  };
+
+  const handleCheck = (todoId: string) => {
+    toggleTodo(todoId);
   };
 
   return (
@@ -35,7 +39,14 @@ function App() {
       </Form>
       <List>
         {todos.map((todo) => (
-          <ListItem key={todo.id} name={todo.name} />
+          <ListItem
+            checkbox
+            id={todo.id}
+            key={todo.id}
+            name={todo.name}
+            checked={todo.selected}
+            onCheck={handleCheck}
+          />
         ))}
       </List>
     </div>
