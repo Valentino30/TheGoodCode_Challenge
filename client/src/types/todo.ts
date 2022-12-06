@@ -7,6 +7,10 @@ export type TodoType = {
 };
 
 export type TodoContextType = {
+  adding: boolean;
+  loading: boolean;
+  toggling: boolean;
+  deleting: boolean;
   todos: TodoType[] | [];
   addTodo: (name: string) => void;
   toggleTodo: (id: string) => void;

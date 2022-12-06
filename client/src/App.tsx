@@ -10,7 +10,16 @@ import ListItem from "./components/ListItem";
 
 function App() {
   const [newTodo, setNewTodo] = useState("");
-  const { todos, addTodo, toggleTodo, deleteTodo } = useTodo();
+  const {
+    todos,
+    adding,
+    addTodo,
+    loading,
+    toggling,
+    deleting,
+    toggleTodo,
+    deleteTodo,
+  } = useTodo();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setNewTodo(e.target.value);
@@ -41,20 +50,29 @@ function App() {
           onChange={handleChange}
         />
       </Form>
-      <List>
-        {todos.map((todo) => (
-          <ListItem
-            remove
-            checkbox
-            id={todo.id}
-            key={todo.id}
-            name={todo.name}
-            onCheck={handleCheck}
-            checked={todo.selected}
-            onButtonClick={handleDelete}
-          />
-        ))}
-      </List>
+      {!loading ? (
+        <List>
+          {adding && <p>Adding todo...</p>}
+          {deleting && <p>Deleting todo...</p>}
+          {toggling && <p>Toggling todo...</p>}
+          {todos.map((todo) => (
+            <ListItem
+              remove
+              checkbox
+              id={todo.id}
+              key={todo.id}
+              name={todo.name}
+              deleting={deleting}
+              toggling={toggling}
+              onCheck={handleCheck}
+              checked={todo.selected}
+              onButtonClick={handleDelete}
+            />
+          ))}
+        </List>
+      ) : (
+        <p>Fetching todos...</p>
+      )}
     </div>
   );
 }

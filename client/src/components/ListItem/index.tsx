@@ -8,6 +8,8 @@ type ListItemProps = {
   name: string;
   remove: boolean;
   checked: boolean;
+  deleting: boolean;
+  toggling: boolean;
   checkbox: boolean;
   onCheck: (id: string) => void;
   onButtonClick: (id: string) => void;
@@ -19,16 +21,30 @@ export default function ListItem({
   remove,
   checked,
   onCheck,
+  deleting,
+  toggling,
   checkbox,
   onButtonClick,
 }: ListItemProps) {
   return (
     <StyledLi>
       {checkbox && (
-        <Checkbox checked={checked} onCheck={onCheck} checkId={id} />
+        <Checkbox
+          checkId={id}
+          checked={checked}
+          onCheck={onCheck}
+          disabled={toggling}
+        />
       )}
       {name}
-      {remove && <Button name="Delete" id={id} onClick={onButtonClick} />}
+      {remove && (
+        <Button
+          id={id}
+          name={"Delete"}
+          disabled={deleting}
+          onClick={onButtonClick}
+        />
+      )}
     </StyledLi>
   );
 }

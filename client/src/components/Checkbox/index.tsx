@@ -3,10 +3,16 @@ import { StyledInput } from "./styles";
 type CheckboxProps = {
   checkId: string;
   checked: boolean;
+  disabled: boolean;
   onCheck: (id: string) => void;
 };
 
-export default function Checkbox({ checked, onCheck, checkId }: CheckboxProps) {
+export default function Checkbox({
+  checked,
+  onCheck,
+  checkId,
+  disabled,
+}: CheckboxProps) {
   const handleChange = () => {
     onCheck(checkId);
   };
@@ -14,8 +20,9 @@ export default function Checkbox({ checked, onCheck, checkId }: CheckboxProps) {
   return (
     <StyledInput
       type={"checkbox"}
-      aria-label="checkbox"
       checked={checked}
+      disabled={disabled}
+      aria-label="checkbox"
       onChange={handleChange}
     />
   );
