@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import { createContext, useContext, useEffect, useState } from "react";
 
 import { TodoContextType, TodoProviderType, TodoType } from "../types/todo";
@@ -27,33 +28,49 @@ export const TodoProvider = ({ children }: TodoProviderType) => {
 
   const getTodos = async () => {
     setLoading(true);
-    const todos = await getTodosRequest();
-    setTodos(todos);
+    try {
+      const todos = await getTodosRequest();
+      setTodos(todos);
+    } catch (error) {
+      toast.error("Could not fetch todos 😞");
+    }
     setLoading(false);
   };
 
   const addTodo = async (name: string) => {
     setAdding(true);
-    const todo = await addTodoRequest(name);
-    setTodos([...todos, todo]);
+    try {
+      const todo = await addTodoRequest(name);
+      setTodos([...todos, todo]);
+    } catch (error) {
+      toast.error("Could not add todo 😞");
+    }
     setAdding(false);
   };
 
   const toggleTodo = async (id: string) => {
     setToggling(true);
-    const completedTodo = await toggleTodoRequest(id);
-    setTodos((todos) => {
-      return todos.map((todo) => (todo.id === id ? completedTodo : todo));
-    });
+    try {
+      const completedTodo = await toggleTodoRequest(id);
+      setTodos((todos) => {
+        return todos.map((todo) => (todo.id === id ? completedTodo : todo));
+      });
+    } catch (error) {
+      toast.error("Could not toggle todo 😞");
+    }
     setToggling(false);
   };
 
   const deleteTodo = async (id: string) => {
     setDeleting(true);
-    await deleteTodoRequest(id);
-    setTodos((todos) => {
-      return todos.filter((todo) => todo.id !== id);
-    });
+    try {
+      await deleteTodoRequest(id);
+      setTodos((todos) => {
+        return todos.filter((todo) => todo.id !== id);
+      });
+    } catch (error) {
+      toast.error("Could not delete todo 😞");
+    }
     setDeleting(false);
   };
 

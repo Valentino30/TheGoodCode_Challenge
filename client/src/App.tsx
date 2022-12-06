@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import { useState, FormEvent, ChangeEvent } from "react";
 
 import "./App.css";
@@ -27,8 +28,12 @@ function App() {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    addTodo(newTodo);
-    setNewTodo("");
+    if (!newTodo) {
+      toast.info("Write something first 🤓");
+    } else {
+      addTodo(newTodo);
+      setNewTodo("");
+    }
   };
 
   const handleCheck = (todoId: string) => {
