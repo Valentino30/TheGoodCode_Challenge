@@ -31,4 +31,10 @@ export class TodosControllers {
     const toggledTodo = await this.todosService.toggleTodo(todoId);
     return toggledTodo;
   }
+
+  @Delete(':id')
+  async deleteTodo(@Param('id') todoId: string) {
+    const successResponse = await this.todosService.deleteTodo(todoId);
+    return successResponse;
+  }
 }

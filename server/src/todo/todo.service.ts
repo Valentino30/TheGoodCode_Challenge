@@ -26,6 +26,16 @@ export class TodosService {
     return toggledTodo as Todo;
   }
 
+  async deleteTodo(todoId: string) {
+    const todo = await this.findTodo(todoId);
+    await todo.delete();
+    const successResponse = {
+      success: true,
+      message: `${todo.name} has been successfully deleted`,
+    };
+    return successResponse;
+  }
+
   private async findTodo(todoId: string): Promise<Todo> {
     let todo;
     try {
