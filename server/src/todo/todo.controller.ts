@@ -1,4 +1,4 @@
-import { Get, Controller } from '@nestjs/common';
+import { Get, Controller, Post, Body } from '@nestjs/common';
 
 import { TodosService } from './todo.service';
 
@@ -10,5 +10,11 @@ export class TodosControllers {
   async getTodos() {
     const todos = await this.todosService.getTodos();
     return todos;
+  }
+
+  @Post()
+  async addTodo(@Body('name') name: string) {
+    const newTodo = await this.todosService.addTodo(name);
+    return newTodo;
   }
 }

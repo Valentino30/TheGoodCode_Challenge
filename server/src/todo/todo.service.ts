@@ -12,4 +12,10 @@ export class TodosService {
     const todos = await this.todoModel.find();
     return todos as Todo[];
   }
+
+  async addTodo(name: string): Promise<Todo> {
+    const newTodo = new this.todoModel({ name });
+    await newTodo.save();
+    return newTodo as Todo;
+  }
 }
