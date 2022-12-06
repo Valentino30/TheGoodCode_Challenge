@@ -6,4 +6,8 @@ export const apiCall = {
     const response = await axios.get(`${apiCall.baseUrl}${endpoint}`);
     return response;
   },
+  post: async (endpoint: string, data?: Record<string, string>) => {
+    const response = await axios.post(`${apiCall.baseUrl}${endpoint}`, data);
+    return response;
+  },
 };

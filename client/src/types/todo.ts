@@ -8,6 +8,7 @@ export type TodoType = {
 
 export type TodoContextType = {
   todos: TodoType[] | [];
+  addTodo: (name: string) => void;
 };
 
 export type TodoProviderType = {
