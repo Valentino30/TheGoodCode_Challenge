@@ -1,15 +1,15 @@
 import { StyledButton } from "./styles";
 
 type ButtonProps = {
-  id: string;
+  id?: string;
   name: string;
-  disabled: boolean;
-  onClick: (id: string) => void;
+  disabled?: boolean;
+  onClick?: (id: string) => void;
 };
 
 export default function Button({ id, name, onClick, disabled }: ButtonProps) {
   const handleClick = () => {
-    onClick(id);
+    if (onClick && id) onClick(id);
   };
 
   return (

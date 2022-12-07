@@ -1,10 +1,10 @@
 import { StyledInput } from "./styles";
 
 type CheckboxProps = {
-  checkId: string;
-  checked: boolean;
-  disabled: boolean;
-  onCheck: (id: string) => void;
+  checkId?: string;
+  checked?: boolean;
+  disabled?: boolean;
+  onCheck?: (id: string) => void;
 };
 
 export default function Checkbox({
@@ -14,7 +14,7 @@ export default function Checkbox({
   disabled,
 }: CheckboxProps) {
   const handleChange = () => {
-    onCheck(checkId);
+    if (onCheck && checkId) onCheck && onCheck(checkId);
   };
 
   return (

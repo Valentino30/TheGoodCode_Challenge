@@ -2,7 +2,7 @@ import { FormEventHandler, ReactNode } from "react";
 import { StyledForm } from "./styles";
 
 type FormProps = {
-  children: ReactNode;
+  children?: ReactNode;
   onSubmit: FormEventHandler<HTMLFormElement>;
 };
 
