@@ -7,7 +7,7 @@ describe("Button Component", () => {
   let button: HTMLButtonElement;
 
   it("Renders correctly", () => {
-    render(<Button name={"Click Me"} />);
+    render(<Button>Click Me</Button>);
     button = screen.getByRole("button");
     expect(button).toBeInTheDocument();
   });

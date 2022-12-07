@@ -68,12 +68,9 @@ function App() {
                 checked={todo.selected}
               />
               <Text name={todo.name} />
-              <Button
-                id={todo.id}
-                name={"Delete"}
-                disabled={deleting}
-                onClick={handleDelete}
-              />
+              <Button id={todo.id} disabled={deleting} onClick={handleDelete}>
+                Delete
+              </Button>
             </ListItem>
           ))}
         </List>

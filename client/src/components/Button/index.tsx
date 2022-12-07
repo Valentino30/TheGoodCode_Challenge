@@ -2,19 +2,24 @@ import { StyledButton } from "./styles";
 
 type ButtonProps = {
   id?: string;
-  name: string;
+  children: string;
   disabled?: boolean;
   onClick?: (id: string) => void;
 };
 
-export default function Button({ id, name, onClick, disabled }: ButtonProps) {
+export default function Button({
+  id,
+  onClick,
+  disabled,
+  children,
+}: ButtonProps) {
   const handleClick = () => {
     if (onClick && id) onClick(id);
   };
 
   return (
-    <StyledButton onClick={handleClick} disabled={disabled} aria-label="button">
-      {name}
+    <StyledButton onClick={handleClick} disabled={disabled}>
+      {children}
     </StyledButton>
   );
 }
