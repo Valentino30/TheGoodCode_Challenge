@@ -4,9 +4,12 @@ import { useState, FormEvent, ChangeEvent } from "react";
 import "./App.css";
 import { useTodo } from "./hooks/todo";
 
+import Text from "./components/Text";
 import List from "./components/List";
 import Form from "./components/Form";
 import Input from "./components/Input";
+import Button from "./components/Button";
+import Checkbox from "./components/Checkbox";
 import ListItem from "./components/ListItem";
 
 function App() {
@@ -57,18 +60,21 @@ function App() {
       {!loading && (
         <List>
           {todos.map((todo) => (
-            <ListItem
-              remove
-              checkbox
-              id={todo.id}
-              key={todo.id}
-              name={todo.name}
-              deleting={deleting}
-              toggling={toggling}
-              onCheck={handleCheck}
-              checked={todo.selected}
-              onButtonClick={handleDelete}
-            />
+            <ListItem>
+              <Checkbox
+                checkId={todo.id}
+                disabled={toggling}
+                onCheck={handleCheck}
+                checked={todo.selected}
+              />
+              <Text name={todo.name} />
+              <Button
+                id={todo.id}
+                name={"Delete"}
+                disabled={deleting}
+                onClick={handleDelete}
+              />
+            </ListItem>
           ))}
         </List>
       )}
