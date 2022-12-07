@@ -78,13 +78,13 @@ export const TodoProvider = ({ children }: TodoProviderType) => {
     <TodoContext.Provider
       value={{
         todos,
-        addTodo,
-        toggleTodo,
-        deleteTodo,
-        loading,
         adding,
+        addTodo,
+        loading,
         toggling,
         deleting,
+        toggleTodo,
+        deleteTodo,
       }}
     >
       {children}
