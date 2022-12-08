@@ -16,6 +16,7 @@ export const useTodo = () => {
 };
 
 export const TodoProvider = ({ children }: TodoProviderType) => {
+  // todo: use react query to manage server state
   const [todos, setTodos] = useState<TodoType[]>([]);
   const [toggling, setToggling] = useState(false);
   const [deleting, setDeleting] = useState(false);

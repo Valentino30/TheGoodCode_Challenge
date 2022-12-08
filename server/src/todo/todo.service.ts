@@ -4,6 +4,7 @@ import { Injectable, HttpException, NotFoundException } from '@nestjs/common';
 import { Todo } from './todo.model';
 import { InjectModel } from '@nestjs/mongoose';
 
+// todo: handle exeptions with a nest exeption filter
 @Injectable()
 export class TodosService {
   constructor(@InjectModel('Todo') private readonly todoModel: Model<Todo>) {}

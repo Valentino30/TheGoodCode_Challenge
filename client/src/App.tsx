@@ -13,6 +13,7 @@ import Checkbox from "./components/Checkbox";
 import ListItem from "./components/ListItem";
 
 function App() {
+  // todo: use useRef instead of useState to prevent unnecessary re-renderings
   const [newTodo, setNewTodo] = useState("");
   const {
     todos,
@@ -61,6 +62,7 @@ function App() {
         <List>
           {todos.map((todo) => (
             <ListItem>
+              {/* todo: find a better way to handle loading state while toggling */}
               <Checkbox
                 checkId={todo.id}
                 disabled={toggling}
@@ -68,6 +70,7 @@ function App() {
                 checked={todo.selected}
               />
               <Text name={todo.name} />
+              {/* todo: find a better way to handle loading state while deleting */}
               <Button id={todo.id} disabled={deleting} onClick={handleDelete}>
                 Delete
               </Button>
