@@ -7,18 +7,3 @@ export type TodoType = {
   isBeingDeleted: boolean;
   isBeingToggled: boolean;
 };
-
-export type TodoContextType = {
-  adding: boolean;
-  loading: boolean;
-  toggling: boolean;
-  deleting: boolean;
-  todos: TodoType[] | [];
-  addTodo: (name: string) => void;
-  toggleTodo: (id: string) => void;
-  deleteTodo: (id: string) => void;
-};
-
-export type TodoProviderType = {
-  children: ReactNode;
-};
