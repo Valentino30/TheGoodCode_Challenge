@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import { useState, FormEvent, ChangeEvent } from "react";
+import { useState, FormEvent, ChangeEvent, useRef, useEffect } from "react";
 
 import "./App.css";
 
@@ -21,8 +21,8 @@ import {
 import { TodoType } from "./types/todo";
 
 function App() {
-  // todo: use useRef instead of useState to prevent unnecessary re-renderings
   const [newTodo, setNewTodo] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
   const { mutate: deleteTodo } = useDeleteTodo();
   const { mutate: toggleTodo } = useToggleTodo();
   const { isLoading: isGettingTodos, data: todos } = useGetTodos();
@@ -50,6 +50,12 @@ function App() {
     deleteTodo(todoId);
   };
 
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  });
+
   return (
     <div className="App">
       <h2>The Good Code App</h2>
@@ -57,6 +63,7 @@ function App() {
         <Input
           type="text"
           value={newTodo}
+          innerRef={inputRef}
           onChange={handleChange}
           disabled={isAddingTodo}
           placeholder="Add todo..."
