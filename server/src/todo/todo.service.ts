@@ -5,6 +5,7 @@ import { Todo } from './todo.model';
 import { InjectModel } from '@nestjs/mongoose';
 
 // todo: handle exeptions with a nest exeption filter
+// todo: see https://github.com/wunderbricks/ciao-monorepo/blob/master/api/src/middleware/error.middleware.ts
 @Injectable()
 export class TodosService {
   constructor(@InjectModel('Todo') private readonly todoModel: Model<Todo>) {}
