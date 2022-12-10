@@ -4,6 +4,7 @@ import { StyledInput } from "./styles";
 type InputProps = {
   type: string;
   value: string;
+  disabled: boolean;
   placeholder: string;
   onChange: ChangeEventHandler<HTMLInputElement>;
 };
@@ -11,6 +12,7 @@ type InputProps = {
 export default function Input({
   placeholder,
   onChange,
+  disabled,
   value,
   type,
 }: InputProps) {
@@ -18,6 +20,7 @@ export default function Input({
     <StyledInput
       type={type}
       value={value}
+      disabled={disabled}
       onChange={onChange}
       placeholder={placeholder}
     />

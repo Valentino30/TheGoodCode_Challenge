@@ -2,7 +2,6 @@ import { toast } from "react-toastify";
 import { useState, FormEvent, ChangeEvent } from "react";
 
 import "./App.css";
-import { useTodo } from "./hooks/todo";
 
 import Text from "./components/Text";
 import List from "./components/List";
@@ -11,19 +10,21 @@ import Input from "./components/Input";
 import Button from "./components/Button";
 import Checkbox from "./components/Checkbox";
 import ListItem from "./components/ListItem";
+import { TodoType } from "./types/todo";
+import {
+  useAddTodo,
+  useGetTodos,
+  useDeleteTodo,
+  useToggleTodo,
+} from "./hooks/todo";
 
 function App() {
   // todo: use useRef instead of useState to prevent unnecessary re-renderings
   const [newTodo, setNewTodo] = useState("");
-  const {
-    todos,
-    addTodo,
-    loading,
-    toggling,
-    deleting,
-    toggleTodo,
-    deleteTodo,
-  } = useTodo();
+  const { isLoading: isGettingTodos, data: todos } = useGetTodos();
+  const { mutate: addTodo, isLoading: isAddingTodo } = useAddTodo();
+  const { mutate: toggleTodo, isLoading: isTogglingTodo } = useToggleTodo();
+  const { mutate: deleteTodo, isLoading: isDeletingTodo } = useDeleteTodo();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setNewTodo(e.target.value);
@@ -54,24 +55,29 @@ function App() {
         <Input
           type="text"
           value={newTodo}
-          placeholder="Add todo..."
           onChange={handleChange}
+          disabled={isAddingTodo}
+          placeholder="Add todo..."
         />
       </Form>
-      {!loading && (
+      {!isGettingTodos && (
         <List>
-          {todos.map((todo) => (
+          {todos.map((todo: TodoType) => (
             <ListItem>
               {/* todo: find a better way to handle loading state while toggling */}
               <Checkbox
                 checkId={todo.id}
-                disabled={toggling}
                 onCheck={handleCheck}
                 checked={todo.selected}
+                disabled={isTogglingTodo}
               />
               <Text name={todo.name} />
               {/* todo: find a better way to handle loading state while deleting */}
-              <Button id={todo.id} disabled={deleting} onClick={handleDelete}>
+              <Button
+                id={todo.id}
+                onClick={handleDelete}
+                disabled={isDeletingTodo}
+              >
                 Delete
               </Button>
             </ListItem>
