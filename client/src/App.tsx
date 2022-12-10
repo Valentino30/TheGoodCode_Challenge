@@ -62,7 +62,7 @@ function App() {
           placeholder="Add todo..."
         />
       </Form>
-      <OverlayLoader active={isGettingTodos}>
+      <OverlayLoader active={isGettingTodos || isAddingTodo}>
         <List>
           {!isGettingTodos &&
             todos.map((todo: TodoType) => (
