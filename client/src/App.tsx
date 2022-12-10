@@ -10,13 +10,15 @@ import Input from "./components/Input";
 import Button from "./components/Button";
 import Checkbox from "./components/Checkbox";
 import ListItem from "./components/ListItem";
-import { TodoType } from "./types/todo";
+import OverlayLoader from "./components/OverlayLoader";
+
 import {
   useAddTodo,
   useGetTodos,
   useDeleteTodo,
   useToggleTodo,
 } from "./hooks/todo";
+import { TodoType } from "./types/todo";
 
 function App() {
   // todo: use useRef instead of useState to prevent unnecessary re-renderings
@@ -60,30 +62,31 @@ function App() {
           placeholder="Add todo..."
         />
       </Form>
-      {!isGettingTodos && (
+      <OverlayLoader active={isGettingTodos}>
         <List>
-          {todos.map((todo: TodoType) => (
-            <ListItem>
-              {/* todo: find a better way to handle loading state while toggling */}
-              <Checkbox
-                checkId={todo.id}
-                onCheck={handleCheck}
-                checked={todo.selected}
-                disabled={isTogglingTodo}
-              />
-              <Text name={todo.name} />
-              {/* todo: find a better way to handle loading state while deleting */}
-              <Button
-                id={todo.id}
-                onClick={handleDelete}
-                disabled={isDeletingTodo}
-              >
-                Delete
-              </Button>
-            </ListItem>
-          ))}
+          {!isGettingTodos &&
+            todos.map((todo: TodoType) => (
+              <ListItem>
+                {/* todo: find a better way to handle loading state while toggling */}
+                <Checkbox
+                  checkId={todo.id}
+                  onCheck={handleCheck}
+                  checked={todo.selected}
+                  disabled={isTogglingTodo}
+                />
+                <Text name={todo.name} />
+                {/* todo: find a better way to handle loading state while deleting */}
+                <Button
+                  id={todo.id}
+                  onClick={handleDelete}
+                  disabled={isDeletingTodo}
+                >
+                  Delete
+                </Button>
+              </ListItem>
+            ))}
         </List>
-      )}
+      </OverlayLoader>
     </div>
   );
 }
