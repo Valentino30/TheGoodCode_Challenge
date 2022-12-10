@@ -14,7 +14,7 @@ export default function Checkbox({
   disabled,
 }: CheckboxProps) {
   const handleChange = () => {
-    if (onCheck && checkId) onCheck && onCheck(checkId);
+    if (onCheck && checkId) onCheck(checkId);
   };
 
   return (

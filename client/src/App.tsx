@@ -23,10 +23,10 @@ import { TodoType } from "./types/todo";
 function App() {
   // todo: use useRef instead of useState to prevent unnecessary re-renderings
   const [newTodo, setNewTodo] = useState("");
+  const { mutate: deleteTodo } = useDeleteTodo();
+  const { mutate: toggleTodo } = useToggleTodo();
   const { isLoading: isGettingTodos, data: todos } = useGetTodos();
   const { mutate: addTodo, isLoading: isAddingTodo } = useAddTodo();
-  const { mutate: toggleTodo, isLoading: isTogglingTodo } = useToggleTodo();
-  const { mutate: deleteTodo, isLoading: isDeletingTodo } = useDeleteTodo();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setNewTodo(e.target.value);
@@ -66,22 +66,20 @@ function App() {
         <List>
           {!isGettingTodos &&
             todos.map((todo: TodoType) => (
-              <ListItem>
-                {/* todo: find a better way to handle loading state while toggling */}
+              <ListItem key={todo.id}>
                 <Checkbox
                   checkId={todo.id}
                   onCheck={handleCheck}
                   checked={todo.selected}
-                  disabled={isTogglingTodo}
+                  disabled={todo.isBeingToggled}
                 />
                 <Text name={todo.name} />
-                {/* todo: find a better way to handle loading state while deleting */}
                 <Button
                   id={todo.id}
                   onClick={handleDelete}
-                  disabled={isDeletingTodo}
+                  disabled={todo.isBeingDeleted}
                 >
-                  Delete
+                  {todo.isBeingDeleted ? "Deleting..." : "Delete"}
                 </Button>
               </ListItem>
             ))}
