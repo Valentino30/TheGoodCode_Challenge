@@ -72,7 +72,7 @@ function App() {
       <OverlayLoader active={isGettingTodos || isAddingTodo}>
         <List>
           {!isGettingTodos &&
-            todos.map((todo: TodoType) => (
+            todos?.map((todo: TodoType) => (
               <ListItem key={todo.id}>
                 <Checkbox
                   checkId={todo.id}
