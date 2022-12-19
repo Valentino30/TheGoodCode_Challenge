@@ -11,6 +11,7 @@ import { AppController } from './app.controller';
     ConfigModule.forRoot({ isGlobal: true }),
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
+      // todo: check if mongoose is handling runtime connection errors automatically
       useFactory: async (configService: ConfigService) => {
         return {
           uri: configService.get<string>('MONGODB_URI'),

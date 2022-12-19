@@ -1,7 +1,13 @@
 import { apiCall } from ".";
+import { TodoType } from "../types/todo";
 
 export const getTodosRequest = async () => {
-  const { data: todos } = await apiCall.get("/todos");
+  const { data } = await apiCall.get("/todos");
+  const todos = data.map((todo: TodoType) => ({
+    ...todo,
+    isBeingToggled: false,
+    isBeingDeleted: false,
+  }));
   return todos;
 };
 

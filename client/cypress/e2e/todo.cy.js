@@ -2,7 +2,7 @@ describe("todos", () => {
   beforeEach(() => {
     cy.visit("/");
   });
-
+  // todo: mock api calls
   it("adds, completes and deletes a todo", () => {
     cy.findByRole("textbox").type("Football").type("{enter}");
     cy.findByText(/football/i).should("exist");
