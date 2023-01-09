@@ -1,4 +1,4 @@
-# The Good Code App
+# FullStack Todo App
 
 This is a simple todo app built in Typescript using React & Nest. 
 
